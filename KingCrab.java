@@ -29,38 +29,15 @@ import java.util.ArrayList;
  * <br />
  * This class is not tested on the AP CS A and AB exams.
  */
-public class BlusterCritter extends Critter
+public class KingCrab extends CrabCritter
 {
-	private static final double DARKENING_FACTOR = 0.2;
-	private final int courage;
-    public BlusterCritter(int c)
+    public KingCrab()
     {
-        courage = c;
+        setColor(Color.RED);
     }
-
-    /**
-     * Gets the actors for processing. Implemented to return the actors that
-     * occupy neighboring grid locations. Override this method in subclasses to
-     * look elsewhere for actors to process.<br />
-     * Postcondition: The state of all actors is unchanged.
-     * @return a list of actors that this critter wishes to process.
-     */
-    public ArrayList<Actor> getActors()
-    {
-        ArrayList<Location> one = getGrid().getValidAdjacentLocations(getLocation());
-        ArrayList<Actor> two = new ArrayList<Actor>();
-        ArrayList<Actor> tmp;
-        for(Location idk : one) {
-			tmp = getGrid().getNeighbors(idk);
-			for(Actor act : tmp)
-				if(two.indexOf(act) == -1)
-					two.add(act);
-		}
-		two.remove(this);
-		return two;
-    }
-	
-    /**
+    
+    
+     /**
      * Processes the elements of <code>actors</code>. New actors may be added
      * to empty locations. Implemented to "eat" (i.e. remove) selected actors
      * that are not rocks or critters. Override this method in subclasses to
@@ -72,29 +49,14 @@ public class BlusterCritter extends Critter
      */
     public void processActors(ArrayList<Actor> actors)
     {
-		int cnt = 0;
-		Color c = getColor();
         for (Actor a : actors)
         {
-            if (a instanceof Critter)
-                cnt++;
+            if(getGrid().isValid(a.getLocation().getAdjacentLocation(getLocation().getDirectionToward(a.getLocation()))))
+				a.moveTo(a.getLocation().getAdjacentLocation(getLocation().getDirectionToward(a.getLocation())));
+			else
+				a.removeSelfFromGrid();
         }
-        System.out.println(cnt);
-        if(cnt >= courage) {
-			int red = (int) (c.getRed() * (1 - DARKENING_FACTOR));
-			int green = (int) (c.getGreen() * (1 - DARKENING_FACTOR));
-			int blue = (int) (c.getBlue() * (1 - DARKENING_FACTOR));
-
-			setColor(new Color(red, green, blue));
-		}
-		else {
-			int red = (int) ((255-c.getRed()) * (1 - DARKENING_FACTOR));
-			int green = (int) ((255-c.getGreen()) * (1 - DARKENING_FACTOR));
-			int blue = (int) ((255-c.getBlue()) * (1 - DARKENING_FACTOR));
-
-			setColor(new Color(255-red, 255-green, 255-blue));
-		}
     }
-    
-   
+
+      
 }

@@ -14,7 +14,7 @@ public class BlusterCritterRunner
     {
         BoundedGrid<Actor> mygrid = new BoundedGrid<Actor>(10,10);
         ActorWorld world = new ActorWorld(mygrid);
-        world.add(new Location(7, 8), new Rock());
+        /*world.add(new Location(7, 8), new Rock());
         world.add(new Location(3, 3), new Rock());
         world.add(new Location(1, 3), new Rock());
         world.add(new Location(2, 2), new Rock());
@@ -23,7 +23,8 @@ public class BlusterCritterRunner
         world.add(new Location(7, 2), new Rock(Color.YELLOW));
         world.add(new Location(2, 1), new BlusterCritter(0));
         world.add(new Location(4, 4), new BlusterCritter(2));
-        world.add(new Location(5, 8), new BlusterCritter(5));
+        world.add(new Location(5, 8), new BlusterCritter(5));*/
+        world.add(new Location(5, 8), new BlusterCritter(1));
         world.show();
     }
 }
